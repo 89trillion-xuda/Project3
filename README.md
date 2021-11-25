@@ -78,7 +78,7 @@
 
 - OSA的适配器类，实现滚动视窗逻辑的脚本代码逻辑：
 
-<img src="https://github.com/89trillion-xuda/Project2/blob/master/Assets/ReadMeImg/BasicListAdapter.cs.png" style="zoom:80%;" />
+<img src="https://github.com/89trillion-xuda/Project3/blob/master/Assets/ReadMeImg/BasicListAdapter.cs.png" style="zoom:80%;" />
 
 
 
