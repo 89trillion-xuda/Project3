@@ -74,12 +74,13 @@
 - 使用OSA进行数据的动态更新和显示
 
 
-
 7、关键代码逻辑的流程图
 
-- 控制己方士兵FrostArcher1的控制层的FrostArcherController.cs脚本代码逻辑：
+- OSA的适配器类，实现滚动视窗逻辑的脚本代码逻辑：
 
 <img src="https://github.com/89trillion-xuda/Project2/blob/master/Assets/ReadMeImg/BasicListAdapter.cs.png" style="zoom:80%;" />
+
+
 
 
 
