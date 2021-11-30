@@ -34,6 +34,12 @@ namespace BasicListAdapter
 		[SerializeField] private Sprite rank1;
 		[SerializeField] private Sprite rank2;
 		[SerializeField] private Sprite rank3;
+		
+		//前三名 和 普通的 的头像边框
+		[SerializeField] private Sprite BorderImg1;
+		[SerializeField] private Sprite BorderImg2;
+		[SerializeField] private Sprite BorderImg3;
+		[SerializeField] private Sprite BorderImg4;
 
 		//声明段位图标
 		[SerializeField] private Sprite AreanBadge1;
@@ -58,13 +64,15 @@ namespace BasicListAdapter
 		[SerializeField] private Text RemainMinute;
 		[SerializeField] private Text RemainSecond;
 		
-		//获得自己的排名
+		//获得Banner中自己的排名
 		[SerializeField] private Text MyRankTxt;
-
+		//获得Banner中自己的排名图片
 		[SerializeField] private Image MyRankImg;
-		//获得自己的名称
+		//获得Banner中自己的头像边框
+		[SerializeField] private Image MyBorderImg;
+		//获得Banner自己的名称
 		[SerializeField] private Text MyNameTxt;
-		//获得自己的奖杯数
+		//获得Banner中自己的奖杯数
 		[SerializeField] private Text MyTrophyTxt;
 
 
@@ -151,16 +159,18 @@ namespace BasicListAdapter
 			newOrRecycled.NickNameTxt.text = model.NickNameTxt.ToString();
 			if (model.RankTxt <= 3)
 			{
-				//前三名显示特定排名图片，不显示数字排名
+				//前三名显示特定排名图片和头像边框，不显示数字排名
 				newOrRecycled.RankImg.sprite = model.RankImg;
+				newOrRecycled.BorderImg.sprite = model.BorderImg;
 				newOrRecycled.RankImg.gameObject.SetActive(true);
 				//防止资源图片变形
 				newOrRecycled.RankImg.SetNativeSize();
 			}
 			else
 			{
-				//其他人显示数字排名，没有特定排名图片
+				//其他人显示数字排名，没有特定排名图片和头像边框
 				newOrRecycled.RankImg.gameObject.SetActive(false);
+				newOrRecycled.BorderImg.sprite = BorderImg4;
 				newOrRecycled.RankTxt.gameObject.SetActive(true);
 				newOrRecycled.RankTxt.text = model.RankTxt.ToString();
 			}
@@ -262,7 +272,7 @@ namespace BasicListAdapter
 					model.AreanBadge = AreanBadge8;
 				}
 
-				//前三名设置特定的背景和排名图片,数字排名为i
+				//前三名设置特定的背景、排名图片和头像边框，数字排名为i
 				if (i < 3)
 				{
 					if (i == 0)
@@ -271,6 +281,8 @@ namespace BasicListAdapter
 						model.RankListBtnBg = rank1Bg;
 						//设置特定排名图片
 						model.RankImg = rank1;
+						//设置特定的头像边框
+						model.BorderImg = BorderImg1;
 						//设置数字排名
 						model.RankTxt = i+1;
 					}
@@ -279,6 +291,7 @@ namespace BasicListAdapter
 					{
 						model.RankListBtnBg = rank2Bg;
 						model.RankImg = rank2;
+						model.BorderImg = BorderImg2;
 						model.RankTxt = i+1;
 					}
 
@@ -286,6 +299,7 @@ namespace BasicListAdapter
 					{
 						model.RankListBtnBg = rank3Bg;
 						model.RankImg = rank3;
+						model.BorderImg = BorderImg3;
 						model.RankTxt = i+1;
 					}
 				}
@@ -302,7 +316,7 @@ namespace BasicListAdapter
 				//设置标头Banner中自己的信息
 				if (rankListModels[i].uid == 3716954261)
 				{
-					//根据排名设置自己的排名图片
+					//根据排名设置自己的排名图片和头像边框
 					if (i < 3)
 					{
 						MyRankImg.gameObject.SetActive(true);
@@ -310,12 +324,15 @@ namespace BasicListAdapter
 					if (i == 0)
 					{
 						MyRankImg.sprite = rank1;
+						MyBorderImg.sprite = BorderImg1;
 					}else if (i == 1)
 					{
 						MyRankImg.sprite = rank2;
+						MyBorderImg.sprite = BorderImg2;
 					}else if (i == 2)
 					{
 						MyRankImg.sprite = rank3;
+						MyBorderImg.sprite = BorderImg3;
 					}
 					else
 					{
@@ -347,6 +364,8 @@ namespace BasicListAdapter
 		//声明匹配的ui组件内容类型
 		//Item背景
 		public Sprite RankListBtnBg;
+		//头像边框
+		public Sprite BorderImg;
 		//段位
 		public Sprite AreanBadge;
 		//奖杯数量
@@ -367,6 +386,7 @@ namespace BasicListAdapter
 		//声明用到的UI组件
 		public Button RankListBtn;
 		public Image RankListBtnBg;
+		public Image BorderImg;
 		public Image AreanBadgeImg;
 		public Text TrophyNumTxt;
 		public Image RankImg;
@@ -382,6 +402,7 @@ namespace BasicListAdapter
 			// 它从变量的类型推断变量的组件，所以你不需要自己指定它
 			root.GetComponentAtPath("RankListBtn",out RankListBtn);
 			root.GetComponentAtPath("RankListBtn/RankListBtnBg", out RankListBtnBg);
+			root.GetComponentAtPath("RankListBtn/RankListObject/BorderImg", out BorderImg);
 			root.GetComponentAtPath("RankListBtn/RankListObject/AreanBadgeImg", out AreanBadgeImg);
 			root.GetComponentAtPath("RankListBtn/RankListObject/ShadowBgImg/TrophyNumTxt", out TrophyNumTxt);
 			root.GetComponentAtPath("RankListBtn/RankListObject/RankImg", out RankImg);

@@ -1976,6 +1976,10 @@ MonoBehaviour:
   rank1: {fileID: 21300000, guid: fc2bc88b5070447ef98b190e6c300912, type: 3}
   rank2: {fileID: 21300000, guid: 8fa4e29430d964eb6a8220611fc42ff2, type: 3}
   rank3: {fileID: 21300000, guid: cfaca247261bf4d98b9545bde44c63ac, type: 3}
+  BorderImg1: {fileID: 21300000, guid: ef5e37f352651414a89cfa4cccd74973, type: 3}
+  BorderImg2: {fileID: 21300000, guid: ed3812922d37a4908bb2307281415a5a, type: 3}
+  BorderImg3: {fileID: 21300000, guid: 476f1b352200c4ebbbee165869ab6f08, type: 3}
+  BorderImg4: {fileID: 21300000, guid: 67adf2ca070824b949813801483cd68b, type: 3}
   AreanBadge1: {fileID: 21300000, guid: 0382ae979ff3a4a0cb1adfdad50a6aac, type: 3}
   AreanBadge2: {fileID: 21300000, guid: 0dd2255a607b84f679f06fa1f87dc630, type: 3}
   AreanBadge3: {fileID: 21300000, guid: d623ab43a52f540528277e2969098cd7, type: 3}
@@ -1993,6 +1997,7 @@ MonoBehaviour:
   RemainSecond: {fileID: 225621597}
   MyRankTxt: {fileID: 1418805807}
   MyRankImg: {fileID: 95135893}
+  MyBorderImg: {fileID: 1293210568}
   MyNameTxt: {fileID: 776534769}
   MyTrophyTxt: {fileID: 397309401}
 --- !u!114 &851552231
@@ -3719,7 +3724,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -75.49927, y: -82.9801}
+  m_AnchoredPosition: {x: -75.49902, y: -82.9801}
   m_SizeDelta: {x: 101.00098, y: 103.99829}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1962250108
