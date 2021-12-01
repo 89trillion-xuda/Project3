@@ -9,6 +9,7 @@ using Com.TheFallenGames.OSA.Core;
 using Com.TheFallenGames.OSA.CustomParams;
 using Com.TheFallenGames.OSA.DataHelpers;
 using UnityEngine.UIElements;
+using RankData;
 using Button = UnityEngine.UI.Button;
 using Image = UnityEngine.UI.Image;
 
@@ -231,120 +232,17 @@ namespace BasicListAdapter
 			// 在这里检索您的数据
 			for (int i = 0; i < count; ++i)
 			{
-				var model = new MyListItemModel()
-				{
-					//名子
-					NickNameTxt = rankListModels[i].NickName,
-					TrophyNum = rankListModels[i].Trophy
-				};
-			
-				//根据奖杯数量判断显示段位
-				if ((rankListModels[i].Trophy) < 1000)
-				{
-					model.AreanBadge = AreanBadge1;
-				}
-				else if ((rankListModels[i].Trophy) < 2000)
-				{
-					model.AreanBadge = AreanBadge2;
-				}
-				else if ((rankListModels[i].Trophy) < 3000)
-				{
-					model.AreanBadge = AreanBadge3;
-				}
-				else if ((rankListModels[i].Trophy) < 4000)
-				{
-					model.AreanBadge = AreanBadge4;
-				}
-				else if ((rankListModels[i].Trophy) < 5000)
-				{
-					model.AreanBadge = AreanBadge5;
-				}
-				else if ((rankListModels[i].Trophy) < 6000)
-				{
-					model.AreanBadge = AreanBadge6;
-				}
-				else if ((rankListModels[i].Trophy) < 7000)
-				{
-					model.AreanBadge = AreanBadge7;
-				}
-				else
-				{
-					model.AreanBadge = AreanBadge8;
-				}
+				//调用接口方法，实现根据每一个List中的数据设置相应的Model信息，并接收返回的model
+				MyListItemModel model = setModel(rankListModels[i], i);
 
-				//前三名设置特定的背景、排名图片和头像边框，数字排名为i
-				if (i < 3)
-				{
-					if (i == 0)
-					{
-						//设置特定背景
-						model.RankListBtnBg = rank1Bg;
-						//设置特定排名图片
-						model.RankImg = rank1;
-						//设置特定的头像边框
-						model.BorderImg = BorderImg1;
-						//设置数字排名
-						model.RankTxt = i+1;
-					}
-
-					if (i == 1)
-					{
-						model.RankListBtnBg = rank2Bg;
-						model.RankImg = rank2;
-						model.BorderImg = BorderImg2;
-						model.RankTxt = i+1;
-					}
-
-					if (i == 2)
-					{
-						model.RankListBtnBg = rank3Bg;
-						model.RankImg = rank3;
-						model.BorderImg = BorderImg3;
-						model.RankTxt = i+1;
-					}
-				}
-				else
-				{
-					//其他人显示数字排名
-					model.RankTxt = i+1;
-					//其他人统一背景颜色
-					model.RankListBtnBg = normalRankBg;
-				}
-				
+				//存入model数组
 				newItems[i] = model;
 
 				//设置标头Banner中自己的信息
-				if (rankListModels[i].uid == 3716954261)
+				if (rankListModels[i].Uid == 3716954261)
 				{
-					//根据排名设置自己的排名图片和头像边框
-					if (i < 3)
-					{
-						MyRankImg.gameObject.SetActive(true);
-					}
-					if (i == 0)
-					{
-						MyRankImg.sprite = rank1;
-						MyBorderImg.sprite = BorderImg1;
-					}else if (i == 1)
-					{
-						MyRankImg.sprite = rank2;
-						MyBorderImg.sprite = BorderImg2;
-					}else if (i == 2)
-					{
-						MyRankImg.sprite = rank3;
-						MyBorderImg.sprite = BorderImg3;
-					}
-					else
-					{
-						MyRankImg.gameObject.SetActive(false);
-						MyRankTxt.gameObject.SetActive(true);
-					}
-					//设置自己的排名文字
-					MyRankTxt.text = (i + 1).ToString();
-					//设置自己的名字
-					MyNameTxt.text = rankListModels[i].nickName;
-					//设置自己的奖杯数
-					MyTrophyTxt.text = rankListModels[i].Trophy.ToString();
+					//调用接口方法，传入相关参数，设置Banner信息
+					setBanner(i, rankListModels[i].NickName, rankListModels[i].Trophy.ToString());
 				}
 				
 			}
@@ -355,6 +253,114 @@ namespace BasicListAdapter
 		void OnDataRetrieved(MyListItemModel[] newItems)
 		{
 			Data.InsertItemsAtEnd(newItems);
+		}
+
+		//根据List中的数据，设置每一个Model的信息，并返回设置好的model
+		public MyListItemModel setModel(RankListModel rankListModel, int i)
+		{
+			var model = new MyListItemModel()
+			{
+				//名子
+				NickNameTxt = rankListModel.NickName,
+				TrophyNum = rankListModel.Trophy
+			};
+			
+			//根据奖杯数量判断显示段位
+			int num = rankListModel.Trophy / 1000;
+			switch (num)
+			{
+				case 0:
+					model.AreanBadge = AreanBadge1;
+					break;
+				case 1:
+					model.AreanBadge = AreanBadge2;
+					break;
+				case 2:
+					model.AreanBadge = AreanBadge3;
+					break;
+				case 3:
+					model.AreanBadge = AreanBadge4;
+					break;
+				case 4:
+					model.AreanBadge = AreanBadge5;
+					break;
+				case 5:
+					model.AreanBadge = AreanBadge6;
+					break;
+				case 6:
+					model.AreanBadge = AreanBadge7;
+					break;
+				default:
+					model.AreanBadge = AreanBadge8;
+					break;
+			}
+
+			//前三名设置特定的背景、排名图片和头像边框，数字排名为i
+			if (i == 0)
+			{
+				//设置特定背景
+				model.RankListBtnBg = rank1Bg;
+				//设置特定排名图片
+				model.RankImg = rank1;
+				//设置特定的头像边框
+				model.BorderImg = BorderImg1;
+				//设置数字排名
+				model.RankTxt = i+1;
+			}
+			else if (i == 1)
+			{
+				model.RankListBtnBg = rank2Bg;
+				model.RankImg = rank2;
+				model.BorderImg = BorderImg2;
+				model.RankTxt = i+1;
+			}
+			else if (i == 2)
+			{
+				model.RankListBtnBg = rank3Bg;
+				model.RankImg = rank3;
+				model.BorderImg = BorderImg3;
+				model.RankTxt = i+1;
+			}
+			else
+			{
+				//其他人显示数字排名
+				model.RankTxt = i+1;
+				//其他人统一背景颜色
+				model.RankListBtnBg = normalRankBg;
+			}
+
+			return model;
+		}
+
+		//设置Banner中自己信息的接口方法
+		public void setBanner(int num, string name, string trophy)
+		{
+			//根据排名设置自己的排名图片和头像边框
+			MyRankImg.gameObject.SetActive(true);
+			if (num == 0)
+			{
+				MyRankImg.sprite = rank1;
+				MyBorderImg.sprite = BorderImg1;
+			}else if (num == 1)
+			{
+				MyRankImg.sprite = rank2;
+				MyBorderImg.sprite = BorderImg2;
+			}else if (num == 2)
+			{
+				MyRankImg.sprite = rank3;
+				MyBorderImg.sprite = BorderImg3;
+			}
+			else
+			{
+				MyRankImg.gameObject.SetActive(false);
+				MyRankTxt.gameObject.SetActive(true);
+			}
+			//设置自己的排名文字
+			MyRankTxt.text = (num + 1).ToString();
+			//设置自己的名字
+			MyNameTxt.text = name;
+			//设置自己的奖杯数
+			MyTrophyTxt.text = trophy;
 		}
 	}
 
@@ -375,10 +381,6 @@ namespace BasicListAdapter
 		public int RankTxt;
 		//排名者名字
 		public string NickNameTxt;
-		/*
-		public string title;
-		public Color color;
-		*/
 	}
 	
 	public class MyListItemViewsHolder : BaseItemViewsHolder
